@@ -1,15 +1,51 @@
 package com.curso.ecommerce.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "detalles")
 public class DetalleOrden {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nombre;
 	private double cantidad;
 	private double precio;
 	private double total;
 	
+	//----------------------------------------------------------
+	@OneToOne
+	private Orden orden;
+	//----------------------------------------------------------
+	
+	@ManyToOne
+	private Producto producto;
+	
 	public DetalleOrden() {
 
 	}
+	
+	
+
+	public DetalleOrden(Integer id, String nombre, double cantidad, double precio, double total, Orden orden,
+			Producto producto) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.cantidad = cantidad;
+		this.precio = precio;
+		this.total = total;
+		this.orden = orden;
+		this.producto = producto;
+	}
+
+
 
 	public DetalleOrden(Integer id, String nombre, double cantidad, double precio, double total) {
 		super();
@@ -64,6 +100,22 @@ public class DetalleOrden {
 	public String toString() {
 		return "DetalleOrden [id=" + id + ", nombre=" + nombre + ", cantidad=" + cantidad + ", precio=" + precio
 				+ ", total=" + total + "]";
+	}
+
+	public Orden getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Orden orden) {
+		this.orden = orden;
+	}
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
 	}
 	
 	

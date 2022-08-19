@@ -1,6 +1,19 @@
 package com.curso.ecommerce.model;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nombre;
 	private String username;
@@ -9,11 +22,34 @@ public class Usuario {
 	private String telefono;
 	private String tipo;
 	private String password;
+	//------------------------------------------------------------------------
+	@OneToMany(mappedBy = "usuario")
+	private List<Producto> productos; // Con productos obtengo una Lista de productos para un usuario
+	@OneToMany(mappedBy = "usuario")	
+	private List<Orden> ordenes; // Con ordenes obtengo una lista de ordenes para un usuario
+	
 	
 	public Usuario() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
+	
+	public Usuario(Integer id, String nombre, String username, String email, String direccion, String telefono,
+			String tipo, String password, List<Producto> productos, List<Orden> ordenes) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.username = username;
+		this.email = email;
+		this.direccion = direccion;
+		this.telefono = telefono;
+		this.tipo = tipo;
+		this.password = password;
+		this.productos = productos;
+		this.ordenes = ordenes;
+	}
+
+
 	public Usuario(Integer id, String nombre, String username, String email, String direccion, String telefono,
 			String tipo, String password) {
 		super();
@@ -80,6 +116,22 @@ public class Usuario {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", username=" + username + ", email=" + email
 				+ ", direccion=" + direccion + ", telefono=" + telefono + ", tipo=" + tipo + ", password=" + password
 				+ "]";
+	}
+
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+
+	public List<Orden> getOrdenes() {
+		return ordenes;
+	}
+
+	public void setOrdenes(List<Orden> ordenes) {
+		this.ordenes = ordenes;
 	}
 	
 	
