@@ -37,10 +37,10 @@ public class OrdenServiceImpl implements IOrdenService{
 		if (ordenes.isEmpty()) {
 			numero=1;
 		}else {
-			numero = numeros.stream().max(Integer:compare).get();
+			numero = numeros.stream().max(Integer::compare).get();
 			numero++;
 		}
-		//hasta aqui estamos con numero entero, queremos pasarlo a string
+		
 		
 		if(numero<10) { //
 			numeroConcatenado="000000000"+String.valueOf(numero);
@@ -61,10 +61,9 @@ public class OrdenServiceImpl implements IOrdenService{
 			numeroConcatenado="00"+String.valueOf(numero);
 		}else if(numero<1000000000) {
 			numeroConcatenado="0"+String.valueOf(numero);
-		}else if(numero<10000000000) {
-			numeroConcatenado=""+String.valueOf(numero);	
-			
-			
+		}else {
+			numeroConcatenado=""+String.valueOf(numero);
+		}
 			
 		return numeroConcatenado;
 	}

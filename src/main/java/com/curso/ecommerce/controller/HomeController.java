@@ -1,6 +1,7 @@
 package com.curso.ecommerce.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,8 @@ import com.curso.ecommerce.model.DetalleOrden;
 import com.curso.ecommerce.model.Orden;
 import com.curso.ecommerce.model.Producto;
 import com.curso.ecommerce.model.Usuario;
+import com.curso.ecommerce.service.IDetalleOrdenService;
+import com.curso.ecommerce.service.IOrdenService;
 import com.curso.ecommerce.service.IUsuarioService;
 import com.curso.ecommerce.service.ProductoService;
 
@@ -30,10 +33,15 @@ public class HomeController {
 
 	@Autowired
 	private ProductoService productoService;
-	
+
 	@Autowired
 	private IUsuarioService usuarioService;
-	
+
+	@Autowired
+	private IOrdenService ordenService;
+
+	@Autowired
+	private IDetalleOrdenService detalleOrdenService;
 
 	// para almacenar los detalles de la orden
 	List<DetalleOrden> detalles = new ArrayList<DetalleOrden>();
@@ -74,12 +82,12 @@ public class HomeController {
 		detalleOrden.setNombre(producto.getNombre());
 		detalleOrden.setTotal(producto.getPrecio() * cantidad);
 		detalleOrden.setProducto(producto);
-		
-		//validad que el producto no se añada 2 veces
+
+		// validad que el producto no se añada 2 veces
 		Integer idProducto = producto.getId();
-		//esta funcion landa lo hace para toda la lista
-		boolean ingresado = detalles.stream().anyMatch(p -> p.getProducto().getId()==idProducto);
-		if(!ingresado) {
+		// esta funcion landa lo hace para toda la lista
+		boolean ingresado = detalles.stream().anyMatch(p -> p.getProducto().getId() == idProducto);
+		if (!ingresado) {
 			detalles.add(detalleOrden);
 		}
 
@@ -108,31 +116,56 @@ public class HomeController {
 
 		double sumaTotal = 0;
 		sumaTotal = detalles.stream().mapToDouble(dt -> dt.getTotal()).sum();
-	
+
 		orden.setTotal(sumaTotal);
 		model.addAttribute("cart", detalles);
 		model.addAttribute("orden", orden);
 
 		return "usuario/carrito";
 	}
-	
+
 	@GetMapping("/getCart")
 	public String getCart(Model model) {
-		
+
 		model.addAttribute("cart", detalles);
 		model.addAttribute("orden", orden);
-		
+
 		return "/usuario/carrito";
 	}
-	
+
 	@GetMapping("/order")
 	public String order(Model model) {
-		Usuario usuario = usuarioService.findById(1).get(); //ya lo cambiaremos
-		
+		Usuario usuario = usuarioService.findById(1).get(); // ya lo cambiaremos
+
 		model.addAttribute("cart", detalles);
 		model.addAttribute("orden", orden);
 		model.addAttribute("usuario", usuario);
 		return "usuario/resumenorden";
+	}
+
+	//guardar la orden
+	@GetMapping("/saveOrder")
+	public String saveOrder() {
+		Date fechaCreacion = new Date();
+		orden.setFechaCreacion(fechaCreacion);
+		orden.setNumero(ordenService.generarNumeroOrden());
+
+		// Usuario
+		Usuario usuario = usuarioService.findById(1).get(); // ya lo cambiaremos
+		orden.setUsuario(usuario);
+		ordenService.save(orden);
+
+		// guardar detalles
+		for (DetalleOrden dt : detalles) {
+			dt.setOrden(orden);
+			detalleOrdenService.save(dt);
+		}
+
+		// limpiar lista y orden
+		orden = new Orden();
+		detalles.clear();
+		return "redirect:/";
+
 	}
 
 }
