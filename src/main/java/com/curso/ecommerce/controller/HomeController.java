@@ -1,6 +1,7 @@
 package com.curso.ecommerce.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,27 +58,50 @@ public class HomeController {
 		DetalleOrden detalleOrden = new DetalleOrden();
 		Producto producto = new Producto();
 		double sumaTotal = 0;
-		
+
 		Optional<Producto> optionalProducto = productoService.get(id);
 		log.info("Producto añadido: {}", optionalProducto.get());
 		log.info("Cantidad: {}", cantidad);
 		producto = optionalProducto.get();
-		
+
 		detalleOrden.setCantidad(cantidad);
 		detalleOrden.setPrecio(producto.getPrecio());
 		detalleOrden.setNombre(producto.getNombre());
-		detalleOrden.setTotal(producto.getPrecio()*cantidad);
+		detalleOrden.setTotal(producto.getPrecio() * cantidad);
 		detalleOrden.setProducto(producto);
-		
+
 		detalles.add(detalleOrden);
-		
-		//sumar todos los totales de los productos que esten en esa lista
-		sumaTotal = detalles.stream().mapToDouble(dt->dt.getTotal()).sum();
+
+		// sumar todos los totales de los productos que esten en esa lista
+		sumaTotal = detalles.stream().mapToDouble(dt -> dt.getTotal()).sum();
 		orden.setTotal(sumaTotal);
 		model.addAttribute("cart", detalles);
-		model.addAttribute("orden",orden);
-		
-		
+		model.addAttribute("orden", orden);
+
+		return "usuario/carrito";
+	}
+
+	// quitar un producto del carrito
+	@GetMapping("/delete/cart/{id}")
+	public String deleteProductoCart(@PathVariable Integer id, Model model) {
+		// lista nueva de productos
+		List<DetalleOrden> ordenesNuevas = new ArrayList<DetalleOrden>();
+		for (DetalleOrden detalleOrden : detalles) {
+			if (detalleOrden.getProducto().getId() != id) {
+				ordenesNuevas.add(detalleOrden);
+			}
+		}
+
+		// poner la nueva lista con los productos restantes
+		detalles = ordenesNuevas;
+
+		double sumaTotal = 0;
+		sumaTotal = detalles.stream().mapToDouble(dt -> dt.getTotal()).sum();
+	
+		orden.setTotal(sumaTotal);
+		model.addAttribute("cart", detalles);
+		model.addAttribute("orden", orden);
+
 		return "usuario/carrito";
 	}
 
