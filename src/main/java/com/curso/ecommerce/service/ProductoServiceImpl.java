@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.curso.ecommerce.model.Producto;
-import com.curso.ecommerce.repository.ProductoRepository;
+import com.curso.ecommerce.repository.IProductoRepository;
 //Nos permite inyectar en el controlador esta clase  para hacer el llamado a los métodos CRUD
 @Service 
 public class ProductoServiceImpl implements ProductoService {
 	//estamos inyectando a esta clase un objeto
 	@Autowired 
-	private ProductoRepository productoRepository;
+	private IProductoRepository productoRepository;
 	
 	@Override
 	public Producto save(Producto producto) {
