@@ -1,13 +1,14 @@
 package com.curso.ecommerce.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,8 +25,8 @@ public class Orden {
 	//------------------------------------------------------------------------
 	@ManyToOne
 	private Usuario usuario; // campo de relación con la tabla usuario
-	@OneToOne(mappedBy = "orden")
-	private DetalleOrden detalle; // campo de relación con la table DetalleOrden
+	@OneToMany(mappedBy = "orden")
+	private List<DetalleOrden> detalle; // campo de relación con la table DetalleOrden
 	//-------------------------------------------------------------------------
 	
 	public Orden() {
@@ -108,14 +109,15 @@ public class Orden {
 	}
 
 
-	public DetalleOrden getDetalle() {
+	public List<DetalleOrden> getDetalle() {
 		return detalle;
 	}
 
 
-	public void setDetalle(DetalleOrden detalle) {
+	public void setDetalle(List<DetalleOrden> detalle) {
 		this.detalle = detalle;
 	}
-	
+
+
 	
 }
