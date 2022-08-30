@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.curso.ecommerce.model.Usuario;
@@ -23,21 +22,11 @@ public class UserDetailServiceImpl implements UserDetailsService{
 	private IUsuarioService usuarioService;
 	
 	@Autowired
-	private BCryptPasswordEncoder bCrypt;
-	
-	@Autowired
 	HttpSession session;
 	
 	private Logger log = LoggerFactory.getLogger(UserDetailServiceImpl.class);
 	
-	/**
-	UserDetails user = User.withDefaultPasswordEncoder()
-			 *     .username("user")
-			 *     .password("password")
-			 *     .roles("USER")
-			 *     .build();
-	**/
-	
+		
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		log.info("Este es el username");
@@ -48,7 +37,7 @@ public class UserDetailServiceImpl implements UserDetailsService{
 			session.setAttribute("idusuario", optionalUser.get().getId());
 			Usuario usuario = optionalUser.get();
 			return User.builder().username(usuario.getNombre())
-					             .password(bCrypt.encode(usuario.getPassword()))
+					             .password(usuario.getPassword())
 					             .roles(usuario.getTipo())
 					             .build();
 					
