@@ -1,8 +1,8 @@
 <!-- Navigation -->
 <div th:fragment="header">
-	 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-			<div class="container">
-			<a class="navbar-brand" th:href="@{/administrador}">Spring eCommerce</a>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" th:href="@{/administrador}">e-Shop</a>
 
 			<form class="form-inline my-2 my-lg-0" method="post" action="#">
 				<input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" name="nombre"
@@ -17,18 +17,17 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#"
-							id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false"> ADMIN </a>
-							
-							<div class="dropdown-menu"
-								aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" th:href="@{/productos}">Productos</a> 
-								<a class="dropdown-item" th:href="@{/administrador/usuarios}">Usuarios</a> 
-								<a class="dropdown-item" th:href="@{/administrador/ordenes}">Ordenes</a>
-								<a class="dropdown-item" th:href="@{/usuario/cerrar}">Salir</a> 
-							</div></li>
+					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> ADMIN </a>
+
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<a class="dropdown-item" th:href="@{/productos}">Productos</a>
+							<a class="dropdown-item" th:href="@{/administrador/usuarios}">Usuarios</a>
+							<a class="dropdown-item" th:href="@{/administrador/ordenes}">Ordenes</a>
+							<a class="dropdown-item" th:href="@{/usuario/cerrar}">Salir</a>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -36,15 +35,16 @@
 
 </div>
 
- <!-- /.container -->
+<!-- /.container -->
 
 <!-- Footer -->
 <div th:fragment="footer">
 	<footer class="py-5 bg-dark">
-	      <div class="container">
-	        <p class="m-0 text-center text-white">Copyright &copy; Spring eCommerce 2022</p>
-	      </div>
-	      <!-- /.container -->
-	    </footer>
-</div>
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; macuevas E-Shop 2022</p>
+			<img src="/images/somos_shopgle_tienda_virtual.png" />
 
+		</div>
+		<!-- /.container -->
+	</footer>
+</div>

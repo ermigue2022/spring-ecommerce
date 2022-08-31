@@ -23,14 +23,16 @@
 
 	<!-- Navigation -->
 	<div th:fragment="header">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
 			<div class="container">
-				<a class="navbar-brand" th:href="@{/}">Spring eCommerce</a>
+				
+				<a class="navbar-brand" th:href="@{/}">E-Shop</a>
 
 				<form class="form-inline my-2 my-lg-0" method="post" th:action="@{/search}">
 					<input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search"
 						name="nombre" autocomplete="off">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+					
 				</form>
 
 
@@ -47,13 +49,13 @@
 			</div>
 		</nav>
 	</div>
-	
-	
+
+
 	<!-- Navigation -->
 	<div th:fragment="header-user">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 			<div class="container">
-				<a class="navbar-brand" th:href="@{/}">Spring eCommerce</a>
+				<a class="navbar-brand" th:href="@{/}">E-Shop simulation</a>
 
 				<form class="form-inline my-2 my-lg-0" method="post" th:action="@{/search}">
 					<input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search"
@@ -74,7 +76,7 @@
 
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 								<a class="dropdown-item" th:href="@{/usuario/compras}">Compras</a>
-								<a class="dropdown-item" th:href="@{/getCArt}">Carrito</a>
+								<a class="dropdown-item" th:href="@{/getCart}">Carrito</a>
 								<a class="dropdown-item" th:href="@{/usuario/cerrar}">Salir</a>
 							</div>
 						</li>
@@ -89,7 +91,9 @@
 	<div th:fragment="footer">
 		<footer class="py-5 bg-dark">
 			<div class="container">
-				<p class="m-0 text-center text-white">Copyright &copy; Spring eCommerce 2021</p>
+				<p class="m-0 text-center text-white">Copyright &copy; macuevas E-Shop 2022</p>
+				<img src="/images/somos_shopgle_tienda_virtual.png"/>
+
 			</div>
 			<!-- /.container -->
 		</footer>
