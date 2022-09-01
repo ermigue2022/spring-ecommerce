@@ -15,7 +15,7 @@
 	<name>spring-ecommerce</name>
 	<description>Curso de Spring proyecto ecommerce</description>
 	<properties>
-		<java.version>18</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
