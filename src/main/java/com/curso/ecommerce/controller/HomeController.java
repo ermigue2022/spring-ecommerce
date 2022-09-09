@@ -139,7 +139,7 @@ public class HomeController {
 		model.addAttribute("orden", orden);
 		
 		//sesion
-		model.addAttribute("sesion", session.getAttribute("idususario"));
+		model.addAttribute("sesion", session.getAttribute("idusuario"));
 		return "/usuario/carrito";
 	}
 
